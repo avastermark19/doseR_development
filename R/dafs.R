@@ -8,13 +8,6 @@
 
 dafs <- function(VEC1, PLOT) {
 
-  #utils::globalVariables(c("mclust", "earth"))
-  #utils::suppressForeignCheck("mclust")
-  require(mclust)
-  #require(earth)
-
-  # remove 0 values
-  #VEC1 <- VEC1[-which(VEC1==0)]
   VEC1 <- VEC1[VEC1!=0]
 
   #take log2 of data
@@ -42,12 +35,9 @@ dafs <- function(VEC1, PLOT) {
 
   }
 
-  #determine first left-most local minima
-  #out <- earth::earth(s,vv,thresh=0.005)
-
-  if(PLOT) {
+    if(PLOT) {
     plot(density(log2xx),  main="", xlab="Data")
-    #ylim=c(0,0.5),
+
     lines(vx,vv,col="red")
 
     legend(x=-10, y=0.05, legend=c("ks", "data"), col = c(2, 1),
@@ -56,8 +46,5 @@ dafs <- function(VEC1, PLOT) {
     abline(v = vx[which.min(vv)], col = "grey", lty = 2)
   }
 
-  #cutv <- min(out$cuts[out$cuts>0])
-#print(  vx[which.min(vv)] )
-
-  return( vx[which.min(vv)] )
+    return( vx[which.min(vv)] )
 } # dafsFilter
