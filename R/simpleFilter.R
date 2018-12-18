@@ -21,16 +21,14 @@ simpleFilter <- function(cD, mean_cutoff=NULL, min_cutoff=NULL, median_cutoff=NU
 
   ori_len<- nrow(cD@data)
 
-  if(counts==TRUE) {
-    if(!is.null(mean_cutoff)) { cD <- cD[   apply(cD@data , 1, function(x) mean(x) ) > mean_cutoff,] }
-    if(!is.null(min_cutoff)) { cD <- cD[   apply(cD@data , 1, function(x) min(x) ) > min_cutoff,] }
-    if(!is.null(median_cutoff)) { cD <- cD[   apply(cD@data , 1, function(x) median(x) ) > median_cutoff,] }
-  }
-
-  if(counts==FALSE) {
-    if(!is.null(mean_cutoff)) { cD <- cD[   apply(cD@RPKM , 1, function(x) mean(x) ) > mean_cutoff,] }
-    if(!is.null(min_cutoff)) { cD <- cD[   apply(cD@RPKM , 1, function(x) min(x) ) > min_cutoff,] }
-    if(!is.null(median_cutoff)) { cD <- cD[   apply(cD@RPKM , 1, function(x) median(x) ) > median_cutoff,] }
+  if(counts) {
+    if(!is.null(mean_cutoff)) { cD <- cD[   apply(cD@data , 1, function(x) mean(x) ) >= mean_cutoff,] }
+    if(!is.null(min_cutoff)) { cD <- cD[   apply(cD@data , 1, function(x) min(x) ) >= min_cutoff,] }
+    if(!is.null(median_cutoff)) { cD <- cD[   apply(cD@data , 1, function(x) median(x) ) >= median_cutoff,] }
+  } else {
+    if(!is.null(mean_cutoff)) { cD <- cD[   apply(cD@RPKM , 1, function(x) mean(x) ) >= mean_cutoff,] }
+    if(!is.null(min_cutoff)) { cD <- cD[   apply(cD@RPKM , 1, function(x) min(x) ) >= min_cutoff,] }
+    if(!is.null(median_cutoff)) { cD <- cD[   apply(cD@RPKM , 1, function(x) median(x) ) >= median_cutoff,] }
   }
 
   if(is.null(mean_cutoff) && is.null(min_cutoff) && is.null(median_cutoff)) {
