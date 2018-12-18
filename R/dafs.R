@@ -53,10 +53,11 @@ dafs <- function(VEC1, PLOT) {
     legend(x=-10, y=0.05, legend=c("ks", "data"), col = c(2, 1),
                    text.col = c(2, 1), lty = c(1, 1), pch = c(NA,NA),
                    merge = TRUE, bg = "gray90")
+    abline(v = vx[which.min(vv)], col = "grey", lty = 2)
   }
 
   #cutv <- min(out$cuts[out$cuts>0])
 #print(  vx[which.min(vv)] )
-  abline(v = vx[which.min(vv)], col = "grey", lty = 2)
+
   return( vx[which.min(vv)] )
 } # dafsFilter
