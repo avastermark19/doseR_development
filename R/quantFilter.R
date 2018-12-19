@@ -14,18 +14,15 @@
 quantFilter <- function(cD, lo.bound=.25, hi.bound=.75, MEDIAN = FALSE, na.rm = TRUE) {
 
   if(lo.bound > hi.bound) {
-    warning ('lo.bound > hi.bound... cancelling...')
-    return (NULL)
+    stop('lo.bound greater than hi.bound... cancelling...')
   }
 
   if(lo.bound < 0 | lo.bound > 1) {
-    warning ('lo.bound outside range... cancelling...')
-    return (NULL)
+    stop('lo.bound outside range... cancelling...')
   }
 
   if(hi.bound < 0 | hi.bound > 1) {
-    warning ('hi.bound outside range... cancelling...')
-    return (NULL)
+    stop('hi.bound outside range... cancelling...')
   }
 
   if(MEDIAN) {
@@ -34,7 +31,7 @@ quantFilter <- function(cD, lo.bound=.25, hi.bound=.75, MEDIAN = FALSE, na.rm = 
     rpkm <- log2(rowMeans( cD@RPKM, na.rm = na.rm ))
   }
 
-  interq <- quantile(x = rpkm[is.finite(rpkm)], probs = c(lo.bound, hi.bound) ) # get 25 & 75 quartiles, excluding true 0 values
+  interq <- quantile(x = rpkm[is.finite(rpkm)], probs = c(lo.bound, hi.bound) )
 
   outliers <- which(rpkm < interq[1] | rpkm > interq[2] )
 
@@ -42,6 +39,6 @@ quantFilter <- function(cD, lo.bound=.25, hi.bound=.75, MEDIAN = FALSE, na.rm = 
   pct <- percent(  length(outliers)  / length(rpkm)   )
   message( "Filtering removed ", length(outliers), " (", pct, ") of ", length(rpkm), " total loci." )
 
-  invisible(cD[-outliers,]) # remove all rows with "outlier" status
+  return(cD[-outliers,]) # remove all rows with "outlier" status
 
 }

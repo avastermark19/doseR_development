@@ -36,14 +36,14 @@ dafs <- function(VEC1, PLOT) {
   }
 
     if(PLOT) {
-    plot(density(log2xx),  main="", xlab="Data")
+    plot(density(log2xx),  main="", xlab="Expression")
 
     lines(vx,vv,col="red")
 
-    legend(x=-10, y=0.05, legend=c("ks", "data"), col = c(2, 1),
-                   text.col = c(2, 1), lty = c(1, 1), pch = c(NA,NA),
+    legend(x="topright", legend=c("Data", "KS statistic", "Cutoff"), col = c("black", "red", "red"),
+                   text.col = c("black", "red", "red"), lty = c(1, 1, 2), pch = c(NA,NA),
                    merge = TRUE, bg = "gray90")
-    abline(v = vx[which.min(vv)], col = "grey", lty = 2)
+    abline(v = vx[which.min(vv)], col = "red", lty = 2)
   }
 
     return( vx[which.min(vv)] )

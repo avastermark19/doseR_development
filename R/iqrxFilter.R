@@ -30,6 +30,6 @@ iqrxFilter <- function(cD, iqr_multi = 1.5, MEDIAN = FALSE, na.rm = TRUE) {
   pct <- percent(  length(outliers)  / length(rpkm)   )
   message( "Filtering removed ", length(outliers), " (", pct, ") of ", length(rpkm), " total loci." )
 
-  invisible(cD[-outliers,]) # remove all rows with "outlier" status
+  return(cD[-outliers,]) # remove all rows with "outlier" status
 
 }
