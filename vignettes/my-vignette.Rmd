@@ -21,6 +21,7 @@ knitr::opts_chunk$set(
 
 library(mclust)
 library(TestPackage12)
+library(edgeR)
 
 #MyVignette
 
@@ -30,8 +31,10 @@ xassetCountrySector <- read.table('~/TestPackage12/extdata/format.out.Heliconius
   counts.head   <- as.matrix(round(xassetCountrySector[3:ncol(xassetCountrySector)] ))
   Groupings <- rep("X", ncol(xassetCountrySector)-2 )
   segLengths <- xassetCountrySector$Len
-  cd.head <- new("countData", data = counts.head, replicates = Groupings, groups = list(Groupings, Groupings), annotation = gene.chr.match, seglens = segLengths  )
-  libsizes(cd.head) <-   getLibsizes(cd.head,   estimationType = "edgeR")
+  cd.head <- new("countDat", data = counts.head, replicates = factor(Groupings), groups = list(Groupings, Groupings), annotation = gene.chr.match  )
+  cd.head@rowObservables$seglens = segLengths
+  #libsizes(cd.head) <-   getLibsizes(cd.head,   estimationType = "edgeR")
+  libsizes(cd.head) <-   unname(getLibsizes2(cd.head,   estimationType = "edgeR"))
 OBJ <- cd.head 
 
 OBJ@replicates<- as.factor(c("F","F", "F", "M", "M", "M","M", "M", "M", "M", "M","M", "F", "F", "F", "F","F", "F", "F", "F", "M","M", "F","F", "F", "F","M", "M", "F", "F", "F","F", "M", "M", "M", "M","M", "M", "M", "M", "F","F", "F", "F", "M", "M","M", "M", "F", "F", "F","F", "F", "F", "M", "M","M", "M"))
