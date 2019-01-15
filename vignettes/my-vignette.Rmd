@@ -77,5 +77,9 @@ plotRatioBoxes(f_CYD_AB, treatment1="M", treatment2="F", groupings="something", 
 plotRatioDensity(f_CYD_AB, treatment1="M", treatment2="F", mode_mean=TRUE, LOG2=TRUE, col =c("black","red"), lty = 1, type = "l", groupings="something")
 
 
+LEG <- OBJ[,c(2,5,8,11,14,17)]
+dm<- cD.DM(LEG)
+#glSeq(dm, "-1 + replicate*something") # TOO SLOW TO RUN EVERY TIME..
+
 ```
 
