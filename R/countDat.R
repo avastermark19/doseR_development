@@ -122,7 +122,7 @@ setMethod("libsizes", signature = "countDat", function(x) {
 #' @param j second dimension Value
 #' @param ... Value
 #' @param drop Value
-#' @keywords internal
+
 
 setMethod("[", "countDat", function(x, i, j, ..., drop = FALSE) {
   if(missing(j)) {
@@ -396,3 +396,45 @@ setMethod("initialize", "countDat", function(.Object, ..., data, replicates, lib
   .Object
 })
 
+
+#' replicates method for testClass
+#'
+#' @docType methods
+#' @rdname replicates-methods
+#' @param x Value
+#' @param value Value
+
+
+setGeneric("groups<-", function(x, value) standardGeneric("groups<-"))
+
+#' replicates method for testClass
+#'
+#' @docType methods
+#' @rdname replicates-methods
+#' @keywords internal
+
+
+setMethod("groups<-", signature = "countDat", function(x, value) {
+  if(any(sapply(value, length) != ncol(x))) stop(paste(sum(sapply(value, length) != ncol(x)), "vector(s) in the groups structure are the wrong length."))
+  x@groups <- lapply(value, as.factor)
+  x
+})
+
+#' replicates method for testClass
+#'
+#' @docType methods
+#' @rdname replicates-methods
+#' @param x Value
+#' @param value Value
+
+setGeneric("groups", function(x) standardGeneric("groups"))
+
+#' replicates method for testClass
+#'
+#' @docType methods
+#' @rdname replicates-methods
+#' @keywords internal
+
+setMethod("groups", signature = "countDat", function(x) {
+  x@groups
+})
